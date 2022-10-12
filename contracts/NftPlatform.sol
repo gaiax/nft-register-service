@@ -20,7 +20,7 @@ contract NftPlatform is ERC721, AccessControl{
     _setupRole(MINTER_ROLE, _minter);
   }
 
-  function sameMint(address to)
+  function safeMint(address to)
   public 
   onlyRole(MINTER_ROLE)
   {
