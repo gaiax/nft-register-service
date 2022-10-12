@@ -12,7 +12,12 @@ describe("NftPlatform", function(){
     await nftplatform.deployed();
     await nftplatform.safeMint("0xe4832791325a4519E96881e9798DBf1e88Ed6724"); //テストアカウント
     expect(await nftplatform.tokenURI(1)).to.equal(
-      "data:application/json;base64,eyJuYW1lIjoibmFtYWUiLCJkZXNjcmlwdGlvbiI6InNldHVtZWkifQ=="
-    )
-  })
-})
+      "data:application/json;base64,eyJuYW1lIjoibmFtYWUiLCJkZXNjcmlwdGlvbiI6IgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIn0="
+    );
+
+    await nftplatform.safeMint("0xe4832791325a4519E96881e9798DBf1e88Ed6724");
+    expect(await nftplatform.tokenURI(2)).to.equal(
+      "data:application/json;base64,eyJuYW1lIjoibmFtYWUiLCJkZXNjcmlwdGlvbiI6IgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACIn0="
+    );
+  });
+});

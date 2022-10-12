@@ -25,6 +25,7 @@ contract NftPlatform is ERC721, AccessControl{
   onlyRole(MINTER_ROLE)
   {
     _safeMint(to, _tokenIdCounter.current());
+    _tokenIdCounter.increment();
   }
 
   function tokenURI(uint256 tokenId) 
@@ -40,7 +41,7 @@ contract NftPlatform is ERC721, AccessControl{
         Base64.encode(
           bytes(
             abi.encodePacked(
-              "{\"name\":\"namae\",\"description\":\"setumei\"}"
+              "{\"name\":\"namae\",\"description\":\"", tokenId,"\"}"
             )
           )
         )
