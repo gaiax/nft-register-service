@@ -2,9 +2,25 @@
 pragma solidity ^0.8.9;
 
 import "hardhat/console.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
 
-contract NftPlatform {
-  constructor() {
-    console.log("This is a Nft.");
-  }
+contract NftPlatform is ERC721, AccessControl{
+  bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+  bytes32 public constant REGISTER_ROLE = keccak256("REGISTER_ROLE");
+
+  constructor(address _register, address _minter) ERC721("NftPlatform", "NPF") {
+    _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
+    _setupRole(REGISTER_ROLE, _register);
+    _setupRole(MINTER_ROLE, _minter);
+    }
+
+  function supportsInterface(bytes4 interfaceId)
+    public
+    view
+    override(ERC721, AccessControl)
+    returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
+    }
 }
