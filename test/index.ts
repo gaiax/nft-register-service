@@ -2,7 +2,7 @@ import { expect, should } from "chai";
 import { ethers } from "hardhat";
 
 describe("NftPlatform", function(){
-  it("Should return the new greeting once it's changed", async function() {
+  it("Mint a new NFT and shold return the metadata of NFT", async function() {
     const [deployer] = await ethers.getSigners();
     const NftPlatform = await ethers.getContractFactory("NftPlatform");
     const nftplatform = await NftPlatform.deploy(
