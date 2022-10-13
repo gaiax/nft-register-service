@@ -6,8 +6,8 @@ const config: HardhatUserConfig = {
   solidity: "0.8.17",
   networks: {
     goerli: {
-      url: process.env.GOERLI_URL || "",
-      accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      url: `${process.env.GOERLI_URL}`,
+      accounts: [`0x${process.env.PRIVATE_KEY}`],
     },
   },
   etherscan: {

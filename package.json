@@ -33,7 +33,9 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
     "@openzeppelin/contracts": "^4.7.3",
-    "base64-sol": "^1.1.0"
+    "base64-sol": "^1.1.0",
+    "require": "^2.4.20"
   }
 }
