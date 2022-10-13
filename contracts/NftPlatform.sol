@@ -33,12 +33,12 @@ contract NftPlatform is ERC721, AccessControl{
   }
 
   function safeMint(
+    address to,
     string memory _name,
     string memory _image,
     string memory _description,
     uint16 _price,
-    address _seller,
-    address to
+    address _seller
   )
   public 
   onlyRole(MINTER_ROLE)
@@ -72,7 +72,7 @@ contract NftPlatform is ERC721, AccessControl{
               "\",\"description\":\"", products[tokenId].description,
               "\",\"price\":\"", Strings.toString(products[tokenId].price),
               "\",\"seller\":\"", addressToString(products[tokenId].seller),
-              "\"}}"
+              "\"}"
             )
           )
         )
