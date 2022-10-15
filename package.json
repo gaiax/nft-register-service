@@ -23,6 +23,7 @@
     "@types/mocha": "^9.1.1",
     "@types/node": "^18.8.4",
     "chai": "^4.3.6",
+    "dotenv": "^16.0.3",
     "ethers": "^5.7.1",
     "hardhat": "^2.12.0",
     "hardhat-gas-reporter": "^1.0.9",
@@ -32,7 +33,9 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
     "@openzeppelin/contracts": "^4.7.3",
-    "base64-sol": "^1.1.0"
+    "base64-sol": "^1.1.0",
+    "require": "^2.4.20"
   }
 }
