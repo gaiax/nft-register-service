@@ -5,7 +5,9 @@ import { NftPlatform__factory } from "../../typechain-types/factories/contracts/
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
 //
-export const helloWorld = functions.https.onRequest(async(request, response) => {
+export const mint = functions.https.onRequest(async(request, response) => {
+  response.set('Access-Control-Allow-Origin', '*')
+
   const rpc = String(process.env.RPC_URL);
   const Nftplatform_ADDRESS = String(process.env.CONTRACT_ADDRESS); 
   const privateKey = String(process.env.PRIVATE_KEY);
@@ -20,12 +22,12 @@ export const helloWorld = functions.https.onRequest(async(request, response) => 
   );
 
   const mint = await Nftplatform.safeMint(
-    "0xe4832791325a4519E96881e9798DBf1e88Ed6724",
-    "name",
-    "image",
-    "description",
-    "1000",
-    "0xe4832791325a4519E96881e9798DBf1e88Ed6724"
+    request.body.to, 
+    request.body.name, 
+    request.body.image, 
+    request.body.description,
+    request.body.price,
+    request.body.seller
   );
   await mint.wait();
   
