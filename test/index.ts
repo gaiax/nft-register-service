@@ -18,6 +18,11 @@ describe("NftPlatform", function(){
       "1000",
       "0xe4832791325a4519E96881e9798DBf1e88Ed6724"
     ); //テストアカウント
+
+    const bigLastTokenId = await nftplatform.getLastTokenId();
+    const lastTokenId = Number(bigLastTokenId) - 1; 
+    console.log(lastTokenId);
+
     const ret0 = await nftplatform.tokenURI(0);
     const b64result0 = ret0.replace('data:application/json;base64,','');
     const strResult0 = Buffer.from(b64result0, 'base64').toString();

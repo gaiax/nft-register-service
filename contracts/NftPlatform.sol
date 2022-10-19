@@ -92,4 +92,8 @@ contract NftPlatform is ERC721, AccessControl{
     {
         return super.supportsInterface(interfaceId);
     }
+
+  function getLastTokenId() public view returns (uint256) {
+    return _tokenIdCounter.current();
+  }
 }
