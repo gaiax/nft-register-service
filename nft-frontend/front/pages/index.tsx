@@ -3,8 +3,9 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
-//reactが動くか確認する
+
 import React, { useState } from "react"
+import { Button, Container, Stack, TextField } from '@mui/material'
 
 const Home: NextPage = () => {
 
@@ -26,6 +27,15 @@ const Home: NextPage = () => {
         <h1>test</h1>
         <input type="text" placeholder="名前" onChange={(e)=>{setMessage(e.target.value)} }/>
         <button onClick={handle}>consoleを見る</button>
+
+        <Container maxWidth="sm" sx={{ pt: 5 }}>
+          <Stack spacing={3}>
+            <TextField
+              required
+              label="アドレス"
+            />
+          </Stack>
+        </Container>
       </main>
 
       <footer className={styles.footer}>
