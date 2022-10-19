@@ -31,7 +31,7 @@ export const helloWorld = functions.https.onRequest(async(request, response) => 
   
   const bigLastTokenId = await Nftplatform.getLastTokenId();
   const lastTokenId = Number(bigLastTokenId) - 1; // 次にmintされるNFTのIDが返ってくので1マイナスする
-  console.log(lastTokenId);
+  functions.logger.log(lastTokenId);
 
   const tokenURI = await Nftplatform.tokenURI(lastTokenId);
 
