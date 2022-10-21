@@ -1,12 +1,30 @@
-import * as functions from "firebase-functions";
-import { ethers } from 'ethers';
-import { NftPlatform__factory } from "../../typechain-types/factories/contracts/NftPlatform__factory";
+require('dotenv').config();
+import * as functions from "firebase-functions"
+import { ethers } from 'ethers'
+import { NftPlatform__factory } from "../../typechain-types/factories/contracts/NftPlatform__factory"
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-export const mint = functions.https.onRequest(async(request, response) => {
-  response.set('Access-Control-Allow-Origin', '*')
+const express = require("express");
+const cors = require('cors')
+const expressApp = express()
+
+// expressApp.use(cors({ origin: process.env.CORS_ORIGIN }))
+// expressApp.use(cors)
+// expressApp.use(express.json())
+expressApp.use(cors({ origin: true }))
+
+//helthCheckをしてAPIが動いているか確かめる
+expressApp.get("/helthCheck", express.json(), async (request: any, response: any) => {
+  response.setHeader('Access-Control-Allow-Origin', '*');
+  response.send(201).send('OK');
+
+  response.json({
+    answer: "success!"
+  });
+})
+
+
+expressApp.post("/mint", express.json(), async (request: any, response: any) => {
+  response.setHeader({ 'Access-Control-Allow-Origin': '*' });
 
   const rpc = String(process.env.RPC_URL);
   const Nftplatform_ADDRESS = String(process.env.CONTRACT_ADDRESS); 
@@ -22,7 +40,7 @@ export const mint = functions.https.onRequest(async(request, response) => {
   );
 
   const mint = await Nftplatform.safeMint(
-    request.body.to, 
+    signer.address,
     request.body.name, 
     request.body.image, 
     request.body.description,
@@ -32,7 +50,7 @@ export const mint = functions.https.onRequest(async(request, response) => {
   await mint.wait();
   
   const bigLastTokenId = await Nftplatform.getLastTokenId();
-  const lastTokenId = Number(bigLastTokenId) - 1; // 次にmintされるNFTのIDが返ってくので1マイナスする
+  const lastTokenId = Number(bigLastTokenId) - 1; 
   functions.logger.log(lastTokenId);
 
   const tokenURI = await Nftplatform.tokenURI(lastTokenId);
@@ -40,7 +58,15 @@ export const mint = functions.https.onRequest(async(request, response) => {
   const b64result = tokenURI.replace("data:application/json;base64,", "");
   const strResult = Buffer.from(b64result, "base64").toString();
   const jsonResult = JSON.parse(strResult);
-  console.log(jsonResult);
+
+  const owner = await Nftplatform.ownerOf(lastTokenId)
+  jsonResult.contract = Nftplatform_ADDRESS
+  jsonResult.tokenID = lastTokenId
+  jsonResult.to = owner
   
-  response.send({"contract":Nftplatform_ADDRESS, "tokenID":lastTokenId, jsonResult});
+  // response.send({"contract":Nftplatform_ADDRESS, "tokenID":lastTokenId, jsonResult});
+  response.json(jsonResult);
 });
+
+// expressApp.listen(5001, () => console.log('Node server listening on port !'));
+exports.api = functions.https.onRequest(expressApp);
