@@ -30,10 +30,9 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1>test</h1>
+        <h1>MINT YOUR NFT!</h1>
         <input type="text" placeholder="名前" onChange={(e)=>{setMessage(e.target.value)} }/>
         <button onClick={handle}>consoleを見る</button>
-        {/* <Handle /> */}
 
         <Container maxWidth="sm" sx={{ pt: 5 }}>
           <Stack spacing={3}>
@@ -41,6 +40,34 @@ const Home: NextPage = () => {
               required
               label="アドレス"
             />
+            <TextField
+              required
+              label="作品名"
+            />
+            <TextField
+              required
+              label="画像URL(ipfs)"
+            />
+            <TextField
+              required
+              label="作品概要"
+            />
+            <TextField
+              required
+              label="値段"
+            />
+            <TextField
+              required
+              label="販売者アドレス"
+            />
+            <Button
+              color="primary"
+              variant="contained"
+              size="large"
+              // onClick={}
+            >
+              NFTを作成する
+            </Button>
           </Stack>
         </Container>
       </main>
