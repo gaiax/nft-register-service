@@ -5,24 +5,20 @@ import styles from '../styles/Home.module.css'
 
 import React, { useState } from "react"
 import { Button, Container, Stack, TextField } from '@mui/material'
-import { fetchGet, fetchPost } from '../utils/api-helpers'
-// import axios from "axios"
+// import { fetchGet, fetchPost } from '../utils/api-helpers'
+import axios from "axios"
 
 const Home: NextPage = () => {
 
   const [message, setMessage] = useState("");
 
-  const response = fetchGet('/helthCheck');
-
   const handle = async() => (
-    
-    console.log(response)
-    
-    // <form action="http://127.0.0.1:5001/nft-platform-ab865/us-central1/api/helthCheck" method="GET">
-    //   <button type="submit">
-    //     Checkout
-    //   </button>
-    // </form>
+    axios.get(
+      process.env.NEXT_PUBLIC_API_BASE + "/helthCheck"
+    )
+    .then(res => {
+      console.log(res);
+    })
   )
 
   return (

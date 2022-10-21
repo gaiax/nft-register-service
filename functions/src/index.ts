@@ -14,8 +14,8 @@ expressApp.use(cors({ origin: true }))
 
 //helthCheckをしてAPIが動いているか確かめる
 expressApp.get("/helthCheck", express.json(), async (request: any, response: any) => {
-  response.setHeader('Access-Control-Allow-Origin', '*');
-  response.send(201).send('OK');
+  response.set('Access-Control-Allow-Origin', '*');
+  // response.sendStatus(201).send('OK');
 
   response.json({
     answer: "success!"
@@ -24,7 +24,7 @@ expressApp.get("/helthCheck", express.json(), async (request: any, response: any
 
 
 expressApp.post("/mint", express.json(), async (request: any, response: any) => {
-  response.setHeader({ 'Access-Control-Allow-Origin': '*' });
+  response.set({ 'Access-Control-Allow-Origin': '*' });
 
   const rpc = String(process.env.RPC_URL);
   const Nftplatform_ADDRESS = String(process.env.CONTRACT_ADDRESS); 
