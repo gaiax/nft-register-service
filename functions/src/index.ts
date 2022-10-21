@@ -34,14 +34,14 @@ expressApp.post("/mint", express.json(), async (request: any, response: any) => 
   );
 
   const mint = await Nftplatform.safeMint(
-    "0xe4832791325a4519E96881e9798DBf1e88Ed6724",
-    // "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+    // "0xe4832791325a4519E96881e9798DBf1e88Ed6724",
+    "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
     "name",
     "image",
     "description",
     "1000",
-    "0xe4832791325a4519E96881e9798DBf1e88Ed6724"
-    // "0xBcd4042DE499D14e55001CcbB24a551F3b954096"
+    // "0xe4832791325a4519E96881e9798DBf1e88Ed6724"
+    "0xBcd4042DE499D14e55001CcbB24a551F3b954096"
 
     // signer.address,
     // request.body.name, 
