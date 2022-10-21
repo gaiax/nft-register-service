@@ -7,19 +7,31 @@ import React, { useState } from "react"
 import { Button, Container, Stack, TextField } from '@mui/material'
 // import { fetchGet, fetchPost } from '../utils/api-helpers'
 import axios from "axios"
+import { SubmitHandler, useForm } from 'react-hook-form'
+
+interface NftForm {
+  to: string
+  name: string
+  image: string
+  description: string
+  price: string
+  seller: string
+}
 
 const Home: NextPage = () => {
+  const { register, handleSubmit } = useForm<NftForm>()
 
-  const [message, setMessage] = useState("");
-
-  const handle = async() => (
-    axios.get(
-      process.env.NEXT_PUBLIC_API_BASE + "/helthCheck"
+  const submit: SubmitHandler<NftForm> = (data) => {
+    
+    axios.post(
+      process.env.NEXT_PUBLIC_API_BASE + "/mint",
+      data
     )
     .then(res => {
       console.log(res);
+      console.log(data);
     })
-  )
+  }
 
   return (
     <div className={styles.container}>
@@ -31,40 +43,44 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1>MINT YOUR NFT!</h1>
-        <input type="text" placeholder="名前" onChange={(e)=>{setMessage(e.target.value)} }/>
-        <button onClick={handle}>consoleを見る</button>
 
         <Container maxWidth="sm" sx={{ pt: 5 }}>
           <Stack spacing={3}>
             <TextField
               required
               label="アドレス"
+              {...register('to')}
             />
             <TextField
               required
               label="作品名"
+              {...register('name')}
             />
             <TextField
               required
               label="画像URL(ipfs)"
+              {...register('image')}
             />
             <TextField
               required
               label="作品概要"
+              {...register('description')}
             />
             <TextField
               required
               label="値段"
+              {...register('price')}
             />
             <TextField
               required
               label="販売者アドレス"
+              {...register('seller')}
             />
             <Button
               color="primary"
               variant="contained"
               size="large"
-              // onClick={}
+              onClick={handleSubmit(submit)}
             >
               NFTを作成する
             </Button>
