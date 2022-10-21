@@ -3,17 +3,27 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
-
 import React, { useState } from "react"
 import { Button, Container, Stack, TextField } from '@mui/material'
+import { fetchGet, fetchPost } from '../utils/api-helpers'
+// import axios from "axios"
 
 const Home: NextPage = () => {
 
   const [message, setMessage] = useState("");
 
-  const handle = () => {
-    console.log(message);
-  }
+  const response = fetchGet('/helthCheck');
+
+  const handle = async() => (
+    
+    console.log(response)
+    
+    // <form action="http://127.0.0.1:5001/nft-platform-ab865/us-central1/api/helthCheck" method="GET">
+    //   <button type="submit">
+    //     Checkout
+    //   </button>
+    // </form>
+  )
 
   return (
     <div className={styles.container}>
@@ -27,6 +37,7 @@ const Home: NextPage = () => {
         <h1>test</h1>
         <input type="text" placeholder="名前" onChange={(e)=>{setMessage(e.target.value)} }/>
         <button onClick={handle}>consoleを見る</button>
+        {/* <Handle /> */}
 
         <Container maxWidth="sm" sx={{ pt: 5 }}>
           <Stack spacing={3}>
