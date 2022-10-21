@@ -6,22 +6,16 @@ import { NftPlatform__factory } from "../../typechain-types/factories/contracts/
 const express = require("express");
 const cors = require('cors')
 const expressApp = express()
-
-// expressApp.use(cors({ origin: process.env.CORS_ORIGIN }))
-// expressApp.use(cors)
-// expressApp.use(express.json())
 expressApp.use(cors({ origin: true }))
 
 //helthCheckをしてAPIが動いているか確かめる
 expressApp.get("/helthCheck", express.json(), async (request: any, response: any) => {
   response.set('Access-Control-Allow-Origin', '*');
-  // response.sendStatus(201).send('OK');
 
   response.json({
     answer: "success!"
   });
 })
-
 
 expressApp.post("/mint", express.json(), async (request: any, response: any) => {
   response.set({ 'Access-Control-Allow-Origin': '*' });
@@ -40,7 +34,7 @@ expressApp.post("/mint", express.json(), async (request: any, response: any) => 
   );
 
   const mint = await Nftplatform.safeMint(
-    signer.address,
+    request.body.to,
     request.body.name, 
     request.body.image, 
     request.body.description,
@@ -63,10 +57,8 @@ expressApp.post("/mint", express.json(), async (request: any, response: any) => 
   jsonResult.contract = Nftplatform_ADDRESS
   jsonResult.tokenID = lastTokenId
   jsonResult.to = owner
-  
-  // response.send({"contract":Nftplatform_ADDRESS, "tokenID":lastTokenId, jsonResult});
+
   response.json(jsonResult);
 });
 
-// expressApp.listen(5001, () => console.log('Node server listening on port !'));
 exports.api = functions.https.onRequest(expressApp);
