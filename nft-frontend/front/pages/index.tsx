@@ -1,7 +1,7 @@
 import { Component, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { ReactElement } from 'react';
-import Layout from '../components/layouts/'
+import Layout from '../components/layouts/index'
 
 
 //後ほどここに現在販売中のリボンを表示するようにする

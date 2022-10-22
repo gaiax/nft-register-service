@@ -6,7 +6,7 @@ import React, { useState } from "react"
 import { Button, Container, Stack, TextField } from '@mui/material'
 import axios from "axios"
 import { SubmitHandler, useForm } from 'react-hook-form'
-import Layout from '../../components/layouts'
+import Layout from '../../components/layouts/index'
 import { ReactElement } from 'react';
 
 interface NftForm {
