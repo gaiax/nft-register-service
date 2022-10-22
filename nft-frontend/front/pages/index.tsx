@@ -1,11 +1,12 @@
-import { useEffect } from 'react';
+import { Component, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { NextPage } from 'next';
+import { ReactElement } from 'react';
+import Layout from '../components/layouts/'
 
 
 //後ほどここに現在販売中のリボンを表示するようにする
 
-const Home: NextPage = () => {
+export default function Home() {
  
   const router = useRouter();
 
@@ -15,7 +16,14 @@ const Home: NextPage = () => {
     }
   });
 
-  return <></>;
+  return (
+    <div>
+      リダイレクトします。
+    </div>
+  )
 }
 
-export default Home
+Home.getLayout = function getLayout(page: ReactElement){
+  return <Layout>{page}</Layout>;
+}
+
