@@ -75,6 +75,17 @@ expressApp.post("/mint", express.json(), async (request: any, response: any) => 
   jsonResult.to = owner
 
   response.json(jsonResult);
+
+  const docNft = db.collection('NFTs').doc(String(lastTokenId));
+  await docNft.set({
+    owner: request.body.to,
+    name: request.body.name,
+    imageURL: request.body.image,
+    message: request.body.description,
+    id: String(lastTokenId),
+    price: request.body.price,
+    seller: request.body.seller
+  });
 });
 
 exports.api = functions.https.onRequest(expressApp);
