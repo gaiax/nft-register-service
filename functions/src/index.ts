@@ -3,14 +3,30 @@ import * as functions from "firebase-functions"
 import { ethers } from 'ethers'
 import { NftPlatform__factory } from "../../typechain-types/factories/contracts/NftPlatform__factory"
 
+const { initializeApp } = require('firebase-admin/app');
+const { getFirestore } = require('firebase-admin/firestore');
+
 const express = require("express");
 const cors = require('cors')
 const expressApp = express()
 expressApp.use(cors({ origin: true }))
 
+//firestoreの初期化
+initializeApp();
+const db = getFirestore();
+
 //helthCheckをしてAPIが動いているか確かめる
 expressApp.get("/helthCheck", express.json(), async (request: any, response: any) => {
   response.set('Access-Control-Allow-Origin', '*');
+
+  const docRef = db.collection('users').doc('alovelace');
+
+  await docRef.set({
+    first: 'Ada',
+    last: 'Lovelace',
+    born: 1815
+  });
+
 
   response.json({
     answer: "success!"
