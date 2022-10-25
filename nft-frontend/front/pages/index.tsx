@@ -10,11 +10,11 @@ export default function Home() {
  
   const router = useRouter();
 
-  useEffect(() => {
-    if (router.pathname == '/') {
-      router.push('/mint');
-    }
-  });
+  // useEffect(() => {
+  //   if (router.pathname == '/') {
+  //     router.push('/mint');
+  //   }
+  // });
 
   return (
     <div>
