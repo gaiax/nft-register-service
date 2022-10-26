@@ -7,6 +7,7 @@ const { initializeApp } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 
 const express = require("express");
+// import { Request, Response } from "express"
 const cors = require('cors')
 const expressApp = express()
 expressApp.use(cors({ origin: true }))
