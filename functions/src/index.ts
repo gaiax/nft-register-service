@@ -88,4 +88,23 @@ expressApp.post("/mint", express.json(), async (request: any, response: any) => 
   });
 });
 
+expressApp.get("/getNfts", express.json(), async (request: any, response: any) => {
+  response.set('Access-Control-Allow-Origin', '*');
+
+  const NFTs:Array<string> = []
+
+  const allNft = db.collection('NFTs');
+  const nfts = await allNft.get();
+
+  nfts.forEach((doc: any) => {
+    const Nft = doc.data();
+    NFTs.push(Nft);
+  });
+
+
+  response.json({
+    NFTs: NFTs
+  });
+});
+
 exports.api = functions.https.onRequest(expressApp);
