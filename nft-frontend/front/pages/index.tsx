@@ -12,11 +12,11 @@ export default function Home() {
 
   const fetchNFTs = useCallback(async () => {
     const nftDocs = await axios.get(process.env.NEXT_PUBLIC_API_BASE + '/getNfts')
-    //   .then((res) => {
-    //     console.log(res);
-    // });
-    setNfts(nftDocs.NFTs)
-    console.log(nfts);
+      .then((res) => {
+        console.log(res);
+        console.log(res.data.NFTs);
+        setNfts(res.data.NFTs);
+    });
   }, [])
 
   useEffect(() => {
