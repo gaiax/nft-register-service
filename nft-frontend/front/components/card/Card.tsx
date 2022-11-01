@@ -23,10 +23,10 @@ export default function MediaCard({nft}: Props) {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          NFT
+          {nft.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          ここにNFTの説明が表示されます
+          {nft.message}
         </Typography>
       </CardContent>
       <CardActions>

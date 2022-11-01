@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { ReactElement } from 'react';
 import Layout from '../components/layouts/index'
 import MediaCard from '../components/card/Card'
+import NftList from '../components/card/NftList'
 import { NFT, ServerResponse } from '../utils/type'
 import axios, {AxiosResponse} from "axios"
 import Image from 'next/image'
@@ -35,29 +36,20 @@ export default function Home() {
     console.log("text",TopNFT);
 
     if(TopNFT) {
-      // return <SpecialNFT nft={TopNFT} />
       return <MediaCard nft={TopNFT} />
     }
     return null;
-  }
-
-  // const SpecialNFT = ({nft} :Props) => (
-  //   <div>
-  //     <a className="flex flex-col items-center p-3 bg-white rounded-xl border-2 border-gray-200">
-  //       <img className="mt-4 w-48" src={nft.imageURL} alt="topNFT" />
-  //       <p>{nft.name}</p>
-  //     </a>
-  //   </div>
-  // )
-
-  
+  }  
 
   return (
     <div>
       <h1>NFT一覧</h1>
 
-      <TestSample />     
+      {/* <TestSample /> */}
      
+      <div>
+        <NftList nfts={nfts}/>
+      </div>
     </div>
   )
 }
