@@ -5,23 +5,28 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { NFT, ServerResponse } from '../../utils/type'
 
-export default function MediaCard(img:any) {
+export interface Props {
+  nft: NFT 
+}
+
+export default function MediaCard({nft}: Props) {
   return (
+    
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         component="img"
         height="140"
-        image={img}
-        alt="green iguana"
+        image={nft.imageURL}
+        alt="NFT"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          NFT
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          ここにNFTの説明が表示されます
         </Typography>
       </CardContent>
       <CardActions>

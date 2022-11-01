@@ -6,8 +6,11 @@ import MediaCard from '../components/card/Card'
 import { NFT, ServerResponse } from '../utils/type'
 import axios, {AxiosResponse} from "axios"
 import Image from 'next/image'
+import { Test } from 'mocha';
 
-//後ほどここに現在販売中のリボンを表示するようにする
+export interface Props {
+  nft: NFT 
+}
 
 export default function Home() {
   const [nfts, setNfts] = useState<NFT[]>([])
@@ -15,15 +18,12 @@ export default function Home() {
   const getNfts =  async () => {
     const nftDocs = await axios.get(process.env.NEXT_PUBLIC_API_BASE + '/getNfts')
     .then((res: ServerResponse) =>res.data);
-    console.log(nftDocs);
     return nftDocs;
   }
 
   const fetchNFTs = useCallback(async () => {
-    const newDocs = await getNfts();
-       
+    const newDocs = await getNfts();    
     await setNfts(newDocs.NFTs);
-    console.log(newDocs.NFTs)
   }, [])
 
   useEffect(() => {
@@ -32,18 +32,31 @@ export default function Home() {
 
   const TestSample = () => {
     const TopNFT = nfts[0];
-    console.log(nfts[0].imageURL);
+    console.log("text",TopNFT);
+
+    if(TopNFT) {
+      // return <SpecialNFT nft={TopNFT} />
+      return <MediaCard nft={TopNFT} />
+    }
+    return null;
   }
+
+  // const SpecialNFT = ({nft} :Props) => (
+  //   <div>
+  //     <a className="flex flex-col items-center p-3 bg-white rounded-xl border-2 border-gray-200">
+  //       <img className="mt-4 w-48" src={nft.imageURL} alt="topNFT" />
+  //       <p>{nft.name}</p>
+  //     </a>
+  //   </div>
+  // )
+
+  
 
   return (
     <div>
-      リダイレクトします。
+      <h1>NFT一覧</h1>
 
-      <button onClick={TestSample} />
-      {/* <MediaCard img="https://i.imgur.com/AD3MbBi.jpeg"/> */}
-      {/* <img src="https://ipfs.io/ipfs/QmSc6JkFPzkE4XioSLpKaC32Sp1zYZfpQMXkeiuQ6fJMCB"></img> */}
-      {/* <img src="https://i.imgur.com/AD3MbBi.jpeg"></img> */}
-      {/* <Image src={nfts[0].imageURL}></Image> */}
+      <TestSample />     
      
     </div>
   )
