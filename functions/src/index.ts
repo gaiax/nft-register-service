@@ -7,6 +7,7 @@ const { initializeApp } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 
 const express = require("express");
+// import { Request, Response } from "express"
 const cors = require('cors')
 const expressApp = express()
 expressApp.use(cors({ origin: true }))
@@ -85,6 +86,25 @@ expressApp.post("/mint", express.json(), async (request: any, response: any) => 
     id: String(lastTokenId),
     price: request.body.price,
     seller: request.body.seller
+  });
+});
+
+expressApp.get("/getNfts", express.json(), async (request: any, response: any) => {
+  response.set('Access-Control-Allow-Origin', '*');
+
+  const NFTs:Array<string> = []
+
+  const allNft = db.collection('NFTs');
+  const nfts = await allNft.get();
+
+  nfts.forEach((doc: any) => {
+    const Nft = doc.data();
+    NFTs.push(Nft);
+  });
+
+
+  response.json({
+    NFTs: NFTs
   });
 });
 
