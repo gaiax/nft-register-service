@@ -1,13 +1,6 @@
-# Sample Hardhat Project
+# サービスの概要
+このサイトはNFTをmintすることができるサイトです。
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+mintされたNFTデータをfirestoreのデータベースにも保存することで、このサービスからどんなNFTがアップロードされたかをサイトのTOPディレクトリから見ることができます。
 
-Try running some of the following tasks:
-
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
-```
+また、NFTをmintする際は、自分のパソコンから画像を選択し、選択した画像をIPFSのハッシュに変換する仕組みになっています。
